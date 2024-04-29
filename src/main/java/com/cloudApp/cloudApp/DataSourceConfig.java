@@ -17,18 +17,17 @@ public class DataSourceConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/adeyemoy");
         dataSource.setUsername("adeyemoy");
-        dataSource.setPassword("qulsreng4");
+        dataSource.setPassword("quIsreng4");
         return dataSource;
     }
 
-  /*  @Bean
+  @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
         databasePopulator.addScript(new ClassPathResource("data.sql"));
-
         DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator);
         return initializer;
-    }*/
+    }
 }

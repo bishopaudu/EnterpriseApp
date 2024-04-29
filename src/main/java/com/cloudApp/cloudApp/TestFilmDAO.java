@@ -12,7 +12,7 @@ public class TestFilmDAO {
 	Connection conn = null;
     Statement stmt = null;
 	String user = "adeyemoy";
-    String password = "qulsrng4";
+    String password = "quIsreng4";
     // Note none default port used, 6306 not 3306
     String url = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/"+user;
 

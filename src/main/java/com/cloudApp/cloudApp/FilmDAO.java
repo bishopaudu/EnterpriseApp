@@ -88,37 +88,39 @@ public class FilmDAO {
         }
     }
 
-    public void updateFilmByTitle(String title,int year,String director,String review){
-        try{
-            String checkExistsSQL = "SELECT COUNT(*) FROM films WHERE title=?";
+    public void updateFilmByID(int id, int year, String director, String review) {
+        try {
+            String checkExistsSQL = "SELECT COUNT(*) FROM films WHERE id=?";
             conn = DataSourceConfig.dataSource().getConnection();
             PreparedStatement checkIfFilmExists = conn.prepareStatement(checkExistsSQL);
-            checkIfFilmExists.setString(1,title);
+            checkIfFilmExists.setInt(1, id);
             ResultSet resultSet = checkIfFilmExists.executeQuery();
             resultSet.next();
             int count = resultSet.getInt(1);
-            if (count == 0){
-                System.out.print("film with the title:" + title + "does not exists");
+            if (count == 0) {
+                System.out.println("Film with ID " + id + " does not exist");
                 return;
             }
-            String updateSQL = "UPDATE films SET director=?, year=?, review=? WHERE title=?";
+
+            String updateSQL = "UPDATE films SET director=?, year=?, review=? WHERE id=?";
             PreparedStatement preparedStatement = conn.prepareStatement(updateSQL);
-            preparedStatement.setString(1,director);
-            preparedStatement.setString(2,review);
-            preparedStatement.setInt(3,year);
-            preparedStatement.setString(4,title);
+            preparedStatement.setString(1, director);
+            preparedStatement.setInt(2, year);
+            preparedStatement.setString(3, review);
+            preparedStatement.setInt(4, id);
             int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected == 0){
-                System.out.print("film update successfully");
+            if (rowsAffected > 0) {
+                System.out.println("Film with ID " + id + " updated successfully");
             } else {
-                System.out.print("fail to update");
+                System.out.println("Failed to update film with ID " + id);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closeResources();
         }
     }
+
     public void deleteFilmByTitle(String title){
 
         try {
@@ -127,7 +129,7 @@ public class FilmDAO {
             preparedStatement.setString(1,title);
             int rowsDeleted = preparedStatement.executeUpdate();
             if (rowsDeleted > 0){
-                System.out.print("Deleted Suceessfully");
+                System.out.print("Deleted Successfully");
             } else {
                 System.out.print("Failed to delete");
             }
